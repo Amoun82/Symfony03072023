@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Articles
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-4">Les articles</h1>
+
+	<div class="row justify-content-around">
+		{% for article in articles %}
+			<div class="card col-3 m-2">
+				<div class="card-body">
+					<figcaption class="text-center">
+						<img src="{{ article.image }}" alt="image_aricle" class="img-fluid">
+					</figcaption>
+					<h4 class="card-title">{{ article.title }}</h4>
+                    <div class="my-2">Ecrit le {{ article.createdAt|date('d/mY à H:i:s') }}</div>
+					<p class="card-text">{{ article.content|slice(0,10) }}...</p>
+					<a href="{{ path('blog_article_show' , {id : article.id}) }}" class="card-link">voir article</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}
