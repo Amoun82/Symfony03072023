@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gestion categorie{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-4">Gestion des categorie</h1>
+
+    <div class="container">
+        <a href="{{ path('admin_category_new') }}" class="btn btn-primary my-2">New Categorie</a>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Categorie</th>
+                    <th>Contenu</th>
+                    <th>option</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for categorie in categories %}
+                    <tr>
+                        <td>{{ categorie.id }}</td>
+                        <td>{{ categorie.title }}</td>
+                        <td>{{ categorie.description }}</td>
+                        <td>
+                            <a href="{{ path('admin_category_update' , {id: categorie.id}) }}" class="text-warning">edit</a>
+                            <a href="{{ path('admin_category_delete', {id: categorie.id}) }}" class="text-danger">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

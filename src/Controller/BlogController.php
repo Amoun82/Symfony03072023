@@ -25,13 +25,19 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/article/{id}', name: "blog_article_show")]
-    public function formArticle(Article $article)
+    #[Route('/article/show/{id}', name: "article_show")]
+    public function formArticle(Article $article = null)
     {
+        if($article)
+        {
+            return $this->render('blog/show.html.twig', [
+                'article' => $article
+            ]);
+        }else {
+            return $this->redirectToRoute('articles') ;
+        }
 
-        return $this->render('blog/show.html.twig', [
-            'article' => $article
-        ]);
+        
     }
 
 

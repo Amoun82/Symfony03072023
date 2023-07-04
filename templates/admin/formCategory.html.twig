@@ -2,18 +2,18 @@
 
 {% block title %}
     {% if editMode %}
-			Modifier article
+			Modifier categorie
 		{% else %}
-            Ajouter article
+            Ajouter categorie
 		{% endif %}
 {% endblock %}
 
 {% block body %}
 	<h1 class="text-center my-4">
 		{% if editMode %}
-			Modifier un article
+			Modifier une categorie
 		{% else %}
-			Ajouter un article
+			Ajouter une categorie
 		{% endif %}
 	</h1>
 
@@ -24,20 +24,17 @@
 			}
 		}) }}
 		{{ form_row(form.title , { 
-                label: 'Titre',
+                label: 'Category',
                 attr: {
-                    placeholder: "titre de l'article"
+                    placeholder: "titre de la category"
                 }
             }) }}
 		
-		{{ form_row(form.category, {
-			label: 'categorie'
+		{{ form_row(form.description, {
+			label: 'description'
 		}) }}
 
-		{{ form_row(form.image) }}
-		{{ form_row(form.content , {
-                label: "Contenu"
-            }) }}
+
 
 		<button class="btn btn-primary" type="submit">envoyer</button>
 

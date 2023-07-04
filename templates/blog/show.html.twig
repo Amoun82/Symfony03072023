@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-    <a class="btn btn-primary" href="{{ path('articles') }}">Retour à la liste d'article</a>
+	<a class="btn btn-primary" href="{{ path('articles') }}">Retour à la liste d'article</a>
 	<article class="mx-5">
 		<h1 class="text-center my-4">{{ article.title }}</h1>
 		<div class="row align-items-center">
@@ -13,7 +13,36 @@
 			</div>
 			<div class="col-10">
 				<p>{{ article.content }}</p>
+				<p>Catégorie :
+					{{ article.category.title }}</p>
+				<small>Ecrit le
+					{{ article.createdAt|date('d/m/Y à H:i:s') }}
+				</small>
 			</div>
 		</div>
 	</article>
+
+	<div>
+		<h2 class="text-center mt-5">Commentaires</h2>
+
+		<section>
+			<table class="table table-light">
+				<thead>
+					<tr>
+						<th class="col-3">Utilisateur / date</th>
+						<th class="col-9">Commentaire</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for comment in article.comments %}
+						<tr>
+							<td>{{ comment.author }} <br> <small>{{ comment.createdAt|date('d/m/Y à H:i:s') }}</small> </td>
+							<td>{{ comment.content }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</section>
+	</div>
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'incricre
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<h1 class="text-center">S'incricre</h1>
+
+		{{ form_errors(registrationForm) }}
+
+		{{ form_start(registrationForm) }}
+		{{ form_row(registrationForm.name, {
+            label: 'Nom'
+        }) }}
+
+		{{ form_row(registrationForm.firstname, {
+            label: 'Prenom'
+        }) }}
+
+		{{ form_row(registrationForm.email) }}
+		{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+		{# {{ form_row(registrationForm.agreeTerms) }} #}
+
+		<button type="submit" class="btn btn-primary">s'incricre</button>
+		{{ form_end(registrationForm) }}
+	</div>
+{% endblock %}

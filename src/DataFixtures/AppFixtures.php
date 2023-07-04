@@ -5,6 +5,8 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Article;
+use App\Entity\Category;
+use App\Entity\Comment;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -22,14 +24,39 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        for ($i=1; $i <= mt_rand(8,10); $i++)
-        { 
-            $article = new Article ;
-            $article->setTitle($this->faker->sentence(3))
-                    ->setContent($this->faker->paragraph(20))
-                    ->setImage($this->faker->imageURL(200,300))
-                    ->setCreatedAt($this->faker->dateTimeBetween('-10 months')) ;
-            $manager->persist($article) ;
+        for ($j=1; $j <= mt_rand(4,6) ; $j++) { 
+            $category = new Category ;
+            $category->setTitle($this->faker->sentence(2))
+                    ->setDescription($this->faker->paragraph());
+            $manager->persist($category) ;
+
+            for ($i=1; $i <= mt_rand(8,10); $i++)
+            { 
+                $article = new Article ;
+                $article->setTitle($this->faker->sentence(3))
+                        ->setContent($this->faker->paragraph(20))
+                        ->setImage($this->faker->imageURL(200,300))
+                        ->setCreatedAt($this->faker->dateTimeBetween('-10 months'))
+                        ->setCategory($category) ;
+                $manager->persist($article) ;
+
+                for ($k=1; $k <= mt_rand(8,10) ; $k++) { 
+                    $comment = new Comment ;
+                    
+                    $now = new \DateTime ;
+                    $interval = $now->diff($article->getCreatedAt()) ;
+                    $day =  $interval->days ;
+                    $minimum = '-' . $day . ' days' ;
+
+                    $comment->setAuthor($this->faker->name)
+                            ->setContent($this->faker->paragraph(4))
+                            ->setCreatedAt($this->faker->dateTimeBetween($minimum))
+                            ->setArticle($article) ;
+
+                    $manager->persist($comment) ;
+
+                }
+            }
         }
         $manager->flush();
     }

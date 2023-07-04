@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gestion commentaires
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-4">Gestion des commentaires</h1>
+
+	<div class="container">
+		<a href="{{ path('admin_comment_new') }}" class="btn btn-primary my-2">New commentaire</a>
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Auteur</th>
+					<th>Contenu</th>
+					<th>date</th>
+					<th>option</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for comment in comments %}
+					<tr>
+						<td>{{ comment.id }}</td>
+						<td>{{ comment.author }}</td>
+						<td>{{ comment.content }}</td>
+						<td>{{ comment.createdAt|date("d/m/Y à H:i/s") }}</td>
+						<td>
+							<a href="{{ path('admin_comment_update' , {id: comment.id}) }}" class="text-warning">edit</a>
+							<a href="{{ path('admin_comment_delete', {id: comment.id}) }}" class="text-danger">delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
